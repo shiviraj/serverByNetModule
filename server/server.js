@@ -1,7 +1,7 @@
 const {Server} = require('net');
 const fs = require('fs');
 const {getContentType} = require('./src/contentTypeLookup');
-const CLIENT_DIR = `${__dirname}/../snake-photongupta`;
+const CLIENT_DIR = `${__dirname}/../snakeGame`;
 
 const STATUS_OK = 'HTTP/1.1 200 OK';
 const STATUS_NOT_FOUND = 'HTTP/1.1 404 NOT FOUND';
