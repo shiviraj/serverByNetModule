@@ -1,19 +1,12 @@
 const {Server} = require('net');
 const fs = require('fs');
 const {getContentType} = require('./src/contentTypeLookup');
-const CLIENT_DIR = `${__dirname}/../snakeGame`;
+const {getResponseHeader} = require('./src/responseHeader');
+const CLIENT_DIR = `${__dirname}/../client`;
 
+const NOT_FOUND_TEXT = fs.readFileSync(`${__dirname}/database/notFound.html`);
 const STATUS_OK = 'HTTP/1.1 200 OK';
-const STATUS_NOT_FOUND = 'HTTP/1.1 404 NOT FOUND';
-
-const NOT_FOUND = `
-  <html>
-    <head><title>NOT FOUND</title></head>
-    <body>
-      <h1>404 NOT FOUND</h1>
-      <p>Page Not Found</p>
-    </body>
-  </html>`;
+const NOT_FOUND_STATUS = 'HTTP/1.1 404 NOT FOUND';
 
 const getPathAndContentType = function(resource) {
   if (resource === '/') resource = '/index.html';
@@ -21,19 +14,18 @@ const getPathAndContentType = function(resource) {
   return [`${CLIENT_DIR}${resource}`, contentType];
 };
 
-const contentForError = function() {
-  return [NOT_FOUND, STATUS_NOT_FOUND, 'text/html'];
-};
+const contentForError = () => [NOT_FOUND_TEXT, NOT_FOUND_STATUS, 'text/html'];
 
 const sendResponse = function(data, socket) {
-  const [request, ...headers] = data.split('\n');
+  const [request, ...headers] = data.split('\r\n');
   const [method, resource, protocol] = request.split(' ');
   let [path, contentType] = getPathAndContentType(resource);
   fs.readFile(path, (err, data) => {
     let statusCode = STATUS_OK;
     if (err) [data, statusCode, contentType] = contentForError();
-    const header = `${statusCode}\nContent-Type: ${contentType}\nContent-Length: ${data.length}\n\n`;
-    [header, data].forEach(chunk => socket.write(chunk));
+    const response = {data, statusCode, contentType, headers};
+    const responseHeader = getResponseHeader(response);
+    [responseHeader, data].forEach(chunk => socket.write(chunk));
   });
 };
 
