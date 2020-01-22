@@ -1,5 +1,7 @@
 const {Server} = require('net');
 const fs = require('fs');
+const {getContentType} = require('./src/contentTypeLookup');
+const CLIENT_DIR = `${__dirname}/../snake-photongupta`;
 
 const STATUS_OK = 'HTTP/1.1 200 OK';
 const STATUS_NOT_FOUND = 'HTTP/1.1 404 NOT FOUND';
@@ -13,27 +15,10 @@ const NOT_FOUND = `
     </body>
   </html>`;
 
-const getExtension = function(resource) {
-  let extension = resource.split('.').reverse()[0];
-  if (extension === 'ico') extension = 'x-icon';
-  return extension;
-};
-
-const getContentType = function(resource) {
-  const content = {
-    text: ['html', 'css', 'js'],
-    image: ['jpg', 'jpeg', 'png', 'x-icon']
-  };
-  const extension = getExtension(resource);
-  const allContentTypes = Object.keys(content);
-  const type = allContentTypes.filter(key => content[key].includes(extension));
-  return `${type[0]}/${extension}`;
-};
-
 const getPathAndContentType = function(resource) {
   if (resource === '/') resource = '/index.html';
   const contentType = getContentType(resource);
-  return [`client${resource}`, contentType];
+  return [`${CLIENT_DIR}${resource}`, contentType];
 };
 
 const contentForError = function() {
@@ -48,7 +33,7 @@ const sendResponse = function(data, socket) {
     let statusCode = STATUS_OK;
     if (err) [data, statusCode, contentType] = contentForError();
     const header = `${statusCode}\nContent-Type: ${contentType}\nContent-Length: ${data.length}\n\n`;
-    [header, data].forEach((chunk, index) => socket.write(chunk));
+    [header, data].forEach(chunk => socket.write(chunk));
   });
 };
 

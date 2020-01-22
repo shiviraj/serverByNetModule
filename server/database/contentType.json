@@ -1,0 +1,16 @@
+{
+  "text": ["css", "html", "xml", "csv", "plain"],
+  "image": ["png", "jpeg", "jpg", "gif", "x-icon"],
+  "audio": ["mpeg", "ogg"],
+  "multipart": ["form-data"],
+  "application": [
+    "javascript",
+    "json",
+    "x-www-form-urlencoded",
+    "xml",
+    "zip",
+    "pdf",
+    "sql",
+    "graphql"
+  ]
+}
