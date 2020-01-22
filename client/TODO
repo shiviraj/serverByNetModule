@@ -1,0 +1,54 @@
+--DONE-- * Paint or place a static snake on the screen
+            * Assume the snake is composed of blocks 
+
+--DONE-- * Create a simple page that will host the game
+
+--DONE-- * Create a key listener on the grid so that the snake can move
+--DONE-- * Move the snake one cell at a time from left to right
+--DONE-- * Extract a Snake class that is responsible for snake's behavior
+--DONE-- * Create a ghost snake that randomly roams around
+
+--DONE-- * Extract a Direction class that is responsible for the direction 
+           and the deltas 
+
+--DONE-- * Make snake and ghostSnake local. they're currently global and hackable.
+
+--DONE-- * Change color of ghost snake
+
+--DONE-- * Add left, right, up and down movement of snake using respective arrow keys.
+
+--DONE-- * Generate random food 
+
+--DONE-- * Allow snake to eat food when food is available
+
+--DONE-- * Upon eating the food, snake should grow tall
+
+--DONE-- * Add a scoring mechanism
+
+--DONE-- * Add a timeLimit mechanism
+
+--DONE-- * If snake touches itself the game should be over
+
+--DONE-- * If snake touches any of the four wall the game should be over
+
+--DONE-- * special food should appear randomly
+
+--DONE-- * if snake eats special food score will increase by 5
+
+--DONE-- * allow ghost snake to move randomly
+
+--DONE-- * ghost snake should come back from opposite wall if touches the any of four walls
+
+--DONE-- * game will be over if snake touches ghost Snake
+
+--DONE-- * make every field private of every class  
+
+--DONE-- * allow ghost snake to go to the food
+
+--DONE-- * allow ghost snake to eat the food 
+
+--DONE-- * change the background of game
+
+--DONE-- * boost the speed of snake using command key
+
+--DONE-- * reduce the speed of snake using control key
