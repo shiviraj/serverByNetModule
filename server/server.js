@@ -20,7 +20,10 @@ const getExtension = function(resource) {
 };
 
 const getContentType = function(resource) {
-  const content = {text: ['html', 'css', 'js'], image: ['png', 'x-icon']};
+  const content = {
+    text: ['html', 'css', 'js'],
+    image: ['jpg', 'jpeg', 'png', 'x-icon']
+  };
   const extension = getExtension(resource);
   const allContentTypes = Object.keys(content);
   const type = allContentTypes.filter(key => content[key].includes(extension));
